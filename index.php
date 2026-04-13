@@ -59,38 +59,116 @@ function renderPage(array $routes): void
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Mensagem FAESDE</title>
+        <title>FAESDE - Contate-nos</title>
         <link rel="icon" href="./favicon.ico" type="image/x-icon">
         <style>
-            body { font-family: Arial, sans-serif; background: #f8f9fa; margin: 0; padding: 24px; color: #212529; }
-            main { max-width: 640px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.08); padding: 32px; }
-            h1 { margin-top: 0; }
-            ul { padding-left: 1.2rem; }
-            a { color: #155724; text-decoration: none; }
-            a:hover { text-decoration: underline; }
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { 
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            }
+            main {
+                background: white;
+                border-radius: 20px;
+                box-shadow: 0 20px 60px rgba(0,0,0,.3);
+                padding: 60px 40px;
+                max-width: 700px;
+                text-align: center;
+            }
+            h1 {
+                font-size: 32px;
+                color: #333;
+                margin-bottom: 15px;
+                font-weight: 700;
+            }
+            p {
+                color: #666;
+                font-size: 16px;
+                margin-bottom: 40px;
+                line-height: 1.6;
+            }
+            .buttons-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 15px;
+                margin-top: 30px;
+            }
+            @media (min-width: 600px) {
+                .buttons-grid {
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+            .btn {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 25px 20px;
+                text-decoration: none;
+                color: white;
+                border: none;
+                border-radius: 12px;
+                font-size: 15px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                min-height: 120px;
+            }
+            .btn:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 35px rgba(0,0,0,.2);
+            }
+            .btn-admin { background: linear-gradient(135deg, #667eea, #764ba2); }
+            .btn-maintenance { background: linear-gradient(135deg, #f093fb, #f5576c); }
+            .btn-commercial { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+            .btn-environment { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+            .btn-safety { background: linear-gradient(135deg, #fa709a, #fee140); }
+            .btn-label { display: block; font-size: 14px; margin-bottom: 8px; opacity: 0.9; }
+            .btn-title { display: block; font-size: 18px; font-weight: 700; }
         </style>
     </head>
     <body>
         <main>
-            <h1>Redirecionamento inteligente FAESDE</h1>
-            <p>Use uma das rotas de interesse do e-mail para ser redirecionado ao WhatsApp.</p>
-            <p>Rotas válidas:</p>
-            <ul>
-                <?php foreach ($routes as $slug => $label): ?>
-                    <li><a href="<?= $baseUrl . '/' . htmlspecialchars($slug, ENT_QUOTES, 'UTF-8') ?>">/<?= htmlspecialchars($slug, ENT_QUOTES, 'UTF-8') ?></a> — <?= htmlspecialchars($label, ENT_QUOTES, 'UTF-8') ?></li>
-                <?php endforeach; ?>
-            </ul>
-            <p>Se você abriu esta página diretamente, clique em uma das rotas acima ou use o link no e-mail.</p>
+            <img src="./img/logo.png" alt="FAESDE Logo" style="max-width: 100px; margin-bottom: 20px; height: auto;">
+            <h1>Clique na sua área</h1>
+            <p>Selecione o departamento ou interesse para falar conosco pelo WhatsApp</p>
+            <div class="buttons-grid">
+                <a href="<?= $baseUrl ?>/administrativo" class="btn btn-admin">
+                    <span class="btn-label">📋</span>
+                    <span class="btn-title">Administrativo</span>
+                </a>
+                <a href="<?= $baseUrl ?>/manutencao-industrial" class="btn btn-maintenance">
+                    <span class="btn-label">🔧</span>
+                    <span class="btn-title">Manutenção Industrial</span>
+                </a>
+                <a href="<?= $baseUrl ?>/comercial" class="btn btn-commercial">
+                    <span class="btn-label">💼</span>
+                    <span class="btn-title">Comercial</span>
+                </a>
+                <a href="<?= $baseUrl ?>/meio-ambiente" class="btn btn-environment">
+                    <span class="btn-label">🌱</span>
+                    <span class="btn-title">Meio Ambiente</span>
+                </a>
+                <a href="<?= $baseUrl ?>/seguranca-trabalho" class="btn btn-safety" style="grid-column: 1 / -1;">
+                    <span class="btn-label">⛑️</span>
+                    <span class="btn-title">Segurança do Trabalho</span>
+                </a>
+            </div>
         </main>
     </body>
     </html>
     <?php
 }
 
-$requestPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
 $requestPath = trim($requestPath, '/');
 
-if ($requestPath === '') {
+if ($requestPath === '' || $requestPath === 'index.php') {
     renderPage($routes);
     exit;
 }
