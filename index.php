@@ -64,8 +64,8 @@ function renderPage(array $routes): void
         <style>
             * { margin: 0; padding: 0; box-sizing: border-box; }
             body { 
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                background: #f5f5f5;
                 min-height: 100vh;
                 display: flex;
                 align-items: center;
@@ -74,90 +74,68 @@ function renderPage(array $routes): void
             }
             main {
                 background: white;
-                border-radius: 20px;
-                box-shadow: 0 20px 60px rgba(0,0,0,.3);
-                padding: 60px 40px;
-                max-width: 700px;
+                border-radius: 12px;
+                box-shadow: 0 2px 12px rgba(0,0,0,.1);
+                padding: 40px 30px;
+                max-width: 500px;
                 text-align: center;
             }
+            img {
+                max-width: 80px;
+                height: auto;
+                margin-bottom: 25px;
+            }
             h1 {
-                font-size: 32px;
-                color: #333;
-                margin-bottom: 15px;
-                font-weight: 700;
+                font-size: 24px;
+                color: #222;
+                margin-bottom: 8px;
+                font-weight: 600;
             }
             p {
                 color: #666;
-                font-size: 16px;
-                margin-bottom: 40px;
-                line-height: 1.6;
+                font-size: 14px;
+                margin-bottom: 30px;
+                line-height: 1.5;
             }
             .buttons-grid {
                 display: grid;
                 grid-template-columns: 1fr;
-                gap: 15px;
-                margin-top: 30px;
-            }
-            @media (min-width: 600px) {
-                .buttons-grid {
-                    grid-template-columns: 1fr 1fr;
-                }
+                gap: 10px;
             }
             .btn {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                padding: 25px 20px;
+                display: block;
+                padding: 14px 20px;
                 text-decoration: none;
                 color: white;
                 border: none;
-                border-radius: 12px;
-                font-size: 15px;
-                font-weight: 600;
+                border-radius: 6px;
+                font-size: 14px;
+                font-weight: 500;
                 cursor: pointer;
-                transition: all 0.3s ease;
-                min-height: 120px;
+                transition: all 0.2s;
             }
             .btn:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 15px 35px rgba(0,0,0,.2);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0,0,0,.15);
             }
-            .btn-admin { background: linear-gradient(135deg, #667eea, #764ba2); }
-            .btn-maintenance { background: linear-gradient(135deg, #f093fb, #f5576c); }
-            .btn-commercial { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-            .btn-environment { background: linear-gradient(135deg, #43e97b, #38f9d7); }
-            .btn-safety { background: linear-gradient(135deg, #fa709a, #fee140); }
-            .btn-label { display: block; font-size: 14px; margin-bottom: 8px; opacity: 0.9; }
-            .btn-title { display: block; font-size: 18px; font-weight: 700; }
+            .btn-admin { background: #2c3e50; }
+            .btn-maintenance { background: #e74c3c; }
+            .btn-commercial { background: #3498db; }
+            .btn-environment { background: #27ae60; }
+            .btn-safety { background: #f39c12; }
         </style>
     </head>
     <body>
         <main>
-            <img src="./img/logo.png" alt="FAESDE Logo" style="max-width: 100px; margin-bottom: 20px; height: auto;">
+            <img src="./img/logo.png" alt="FAESDE Logo">
             <h1>Clique na sua área</h1>
-            <p>Selecione o departamento ou interesse para falar conosco pelo WhatsApp</p>
+            <p>Selecione o departamento para conversar conosco</p>
             <div class="buttons-grid">
-                <a href="<?= $baseUrl ?>/administrativo" class="btn btn-admin">
-                    <span class="btn-label">📋</span>
-                    <span class="btn-title">Administrativo</span>
-                </a>
-                <a href="<?= $baseUrl ?>/manutencao-industrial" class="btn btn-maintenance">
-                    <span class="btn-label">🔧</span>
-                    <span class="btn-title">Manutenção Industrial</span>
-                </a>
-                <a href="<?= $baseUrl ?>/comercial" class="btn btn-commercial">
-                    <span class="btn-label">💼</span>
-                    <span class="btn-title">Comercial</span>
-                </a>
-                <a href="<?= $baseUrl ?>/meio-ambiente" class="btn btn-environment">
-                    <span class="btn-label">🌱</span>
-                    <span class="btn-title">Meio Ambiente</span>
-                </a>
-                <a href="<?= $baseUrl ?>/seguranca-trabalho" class="btn btn-safety" style="grid-column: 1 / -1;">
-                    <span class="btn-label">⛑️</span>
-                    <span class="btn-title">Segurança do Trabalho</span>
-                </a>
+                <a href="<?= $baseUrl ?>/administrativo" class="btn btn-admin">Administrativo</a>
+                <a href="<?= $baseUrl ?>/manutencao-industrial" class="btn btn-maintenance">Manutenção Industrial</a>
+                <a href="<?= $baseUrl ?>/comercial" class="btn btn-commercial">Comercial</a>
+                <a href="<?= $baseUrl ?>/meio-ambiente" class="btn btn-environment">Meio Ambiente</a>
+                <a href="<?= $baseUrl ?>/seguranca-trabalho" class="btn btn-safety">Segurança do Trabalho</a>
             </div>
         </main>
     </body>
