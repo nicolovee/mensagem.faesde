@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionamento WhatsApp</title>
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+        }
+        .btn {
+            display: block;
+            margin: 10px auto;
+            padding: 15px 25px;
+            font-size: 16px;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            width: 150px;
+            text-align: center;
+        }
+        .btn-whatsapp { background-color: #25d366; }
+        .btn-web { background-color: #075e54; }
+        .btn-call { background-color: #007bff; }
+        .hidden { display: none; }
+    </style>
+    <script>
+        const saudacao = (() => {
+            const hours = new Date().getHours();
+            if (hours < 6) return "Boa madrugada";
+            if (hours < 12) return "Bom dia";
+            if (hours < 18) return "Boa tarde";
+            return "Boa noite";
+        })();
+
+        const phoneNumber = '552722378054';
+        const defaultMessageText = `${saudacao}, tenho interesse em fazer um curso`;
+
+        function obterMensagem() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return decodeURIComponent(urlParams.get('mensagem') || urlParams.get('text') || defaultMessageText);
+        }
+
+        function initializeButtons() {
+            const messageText = obterMensagem();
+            const whatsappLink = `whatsapp://send?phone=${phoneNumber}&text=${encodeURIComponent(messageText)}`;
+            const whatsappWebLink = `https://web.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(messageText)}`;
+            const telLink = `tel:+${phoneNumber}`;
+            const isMobile = /android|iPad|iPhone|iPod/i.test(navigator.userAgent);
+
+            document.getElementById('btn-web').href = whatsappWebLink;
+            document.getElementById('btn-desktop').href = whatsappLink;
+            document.getElementById('btn-call').href = telLink;
+            document.getElementById('btn-call').classList.toggle('hidden', !isMobile);
+            document.getElementById('btn-web').classList.toggle('hidden', isMobile);
+
+            if (isMobile) {
+                window.location.href = whatsappLink;
+            }
+        }
+
+        window.onload = initializeButtons;
+    </script>
+</head>
+<body>
+    <div>
+        <img src="./img/logo.png" alt="Logo" width="165px" height="165px">
+        <p>Escolha uma opção para abrir o WhatsApp:</p>
+        <a id="btn-web" class="btn btn-web hidden" target="_blank">WhatsApp Web</a>
+        <a id="btn-desktop" class="btn btn-whatsapp" target="_blank">Aplicativo WhatsApp</a>
+        <a id="btn-call" class="btn btn-call hidden">Ligar para o número</a>
+    </div>
+</body>
+</html>
